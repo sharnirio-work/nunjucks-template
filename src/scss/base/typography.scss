@@ -1,0 +1,277 @@
+//-------------------- #html
+html {
+	font-size: var(--rem-base);
+	box-sizing: border-box;
+	//fix iOS bugs reset paddings
+	padding: constant(safe-area-inset); //iOS 11
+	padding: env(safe-area-inset); //iOS 11.2+
+
+	@include media("<=desktop") {
+		font-size: calc(var(--rem-base) - 1.5px);
+	}
+
+	@include media("<=tablet") {
+		font-size: calc(var(--rem-base) - 2px);
+	}
+
+	@include media("<=phone") {
+		font-size: calc(var(--rem-base) - 2.5px);
+	}
+
+	@include media("<=phone-xs") {
+		overflow-x: hidden;
+		font-size: calc(var(--rem-base) - 3px);
+	}
+}
+
+//-------------------- #body
+body {
+	color: var(--base-text-color);
+	font: var(--base-font-size)/var(--base-line-height) $base-font;
+	min-width: 320px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+//---------------- #h style h1-h6
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4,
+h5,
+.h5,
+h6,
+.h6,
+.h {
+	font-family: $accent-font;
+	font-weight: bold;
+	color: var(--h1-h6-color);
+
+	a {
+		color: inherit;
+		font-size: inherit;
+	}
+}
+
+h1,
+.h1 {
+	font-size: var(--h1);
+	margin: 0 0 0.3em;
+}
+
+h2,
+.h2 {
+	font-size: var(--h2);
+	margin: 0 0 0.4em;
+}
+h3,
+.h3 {
+	font-size: var(--h3);
+	margin: 0 0 0.5em;
+}
+
+h4,
+.h4 {
+	font-size: var(--h4);
+	margin: 0 0 0.6em;
+}
+
+h5,
+.h5 {
+	font-size: var(--h5);
+	margin: 0 0 0.7em;
+}
+
+h6,
+.h6 {
+	font-size: var(--h6);
+	margin: 0 0 0.8em;
+}
+
+//------------------- #p
+p {
+	margin-bottom: 1.2em;
+	margin-top: 0;
+}
+
+//------------------- #a
+a {
+	color: var(--base-link-color);
+	text-decoration: none;
+	transition: all var(--animation-duration) var(--animation-timing-function);
+
+	&:hover {
+		opacity: 0.8;
+	}
+}
+
+//------------------- #img
+img {
+	max-width: 100%;
+	height: auto;
+	vertical-align: top;
+}
+
+//----------------------------- style #ol #ul #li
+ul,
+ol {
+	list-style: none;
+	margin-top: 0;
+	padding-left: 0px;
+
+	li {
+		list-style: none;
+	}
+}
+
+//common style ol ul
+#sidebar ol:not([class]),
+#sidebar ul:not([class]),
+.entry ol:not([class]),
+.entry ul:not([class]),
+ul.list-style,
+ol.list-style {
+	--line-height-li: var(--base-line-height, 1.2);
+	$margin-li-top: 10px;
+	margin: 0 0 1.2em 0;
+	color: var(--base-text-color);
+
+	li {
+		line-height: var(--line-height-li);
+		padding-left: 20px;
+		position: relative;
+
+		& + li {
+			margin-top: $margin-li-top;
+		}
+	}
+
+	// nested list ul
+	ul {
+		margin-bottom: 0;
+		margin-top: $margin-li-top;
+	}
+
+	// nested list ol
+	ol {
+		margin-bottom: 0;
+		margin-top: $margin-li-top;
+	}
+}
+
+//style only ul
+#sidebar ul:not([class]),
+.entry ul:not([class]),
+ul.list-style {
+	&>li {
+		padding-left: 15px;
+
+		&:before {
+			content: "";
+			position: absolute;
+			@include size(3px);
+			border-radius: 50%;
+			top: calc(0.5em * var(--line-height-li));
+			left: 0;
+			transform: translateY(-50%);
+			background-color: currentColor;
+		}
+	}
+}
+
+//style only ol
+#sidebar ol:not([class]),
+.entry ol:not([class]),
+ol.list-style {
+	counter-reset: list;
+
+	&>li {
+		padding-left: 22px;
+
+		&:before {
+			content: counter(list) ".";
+			counter-increment: list;
+			position: absolute;
+			top: 0;
+			left: 0px;
+			font-weight: bold;
+		}
+	}
+}
+
+//---------------------- #table
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+	width: 100%;
+	margin-bottom: 1.2em;
+
+	th {
+		font-size: var(--base-font-size);
+		color: var(--base-text-color);
+		padding: 10px 15px;
+		text-align: left;
+		border-bottom: 1px solid #979797;
+
+		@include media("<=phone") {
+			padding: 10px 5px;
+		}
+
+		& + th {
+			text-align: center;
+		}
+	}
+
+	td {
+		font-size: var(--base-font-size);
+		color: var(--base-text-color);
+		padding: 10px 15px;
+		border-bottom: 1px solid #979797;
+
+		@include media("<=phone") {
+			padding: 7px 5px;
+		}
+
+		& + td {
+			text-align: center;
+		}
+	}
+}
+
+//------------------- #pre
+pre {
+	max-width: 100%;
+	background: rgba(#000, 0.1);
+	padding: 0.5em;
+}
+
+//------------------- #blockquote
+blockquote {
+	font-size: 25px;
+	color: var(--base-text-color);
+	background: transparent;
+	border-left: 6px solid #ECECEC;
+	padding: 5px 0 5px 28px;
+	margin: 0 0 1.2em;
+}
+
+//------------------- #dl | dt | dd
+dl {
+	margin: 0 0 1.2em 0;
+
+	dt {
+		float: left;
+		clear: left;
+		font-weight: bold;
+		padding: 10px 5px;
+	}
+
+	dd {
+		margin-left: 0;
+		padding: 10px 0;
+	}
+}

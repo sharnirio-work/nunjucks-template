@@ -1,0 +1,104 @@
+@import "vendors/include-media";
+@import "base/variables";
+
+:root {
+	// === Base variable
+
+	// --- HTML style
+	--rem-base: 10px;
+	// --- Body style
+	--base-font-size: 16px;
+	--base-line-height: 1.2;
+	--vertical-rhythm: calc(var(--base-line-height) * 1em);
+
+	// --- Colors
+	--brand-color: #{$brand-color};
+	--brand-color-dark: #{darken($brand-color, 15%)};
+	--brand-color-light: #{lighten($brand-color, 15%)};
+
+	--accent-color: #{$accent-color};
+	--accent-color-dark: #{darken($accent-color, 15%)};
+	--accent-color-light: #{darken($accent-color, 15%)};
+
+	--base-text-color: #333333;
+	--base-link-color: var(--brand-color);
+	--h1-h6-color: var(--base-text-color);
+	// --secondary-color
+	// --add-color (additional)
+
+	// --- Animation
+	--animation-duration: 0.3s;
+	--animation-timing-function: ease;
+	// --- Css variable for padding-x input
+	--input-x: #{$input-padding-x};
+	// Gutter
+	--gutter: #{$gutter};
+	@include media("iphoneX") {
+		//increase paddings that content didn't disturb notch for landscape orientation https://twitter.com/i/status/907911237983449088
+		--gutter: 50px;
+	}
+
+	// Form elements styling
+	--input-color: #{$input-color};
+	--input-placeholder-color: #{$input-placeholder-color};
+	--input-bg-color: #{$input-bg-color};
+	--input-radius: #{$input-radius};
+	--input-border-color: #{$input-border-color};
+	--input-focus-border-color: #{$input-focus-border-color};
+
+	--form-theme-color: #{$form-theme-color};
+	--checkbox-size: #{$checkbox-size};
+	--radio-size: #{$radio-size};
+
+	--label-fz: #{$label-fz};
+	--label-color: #{$label-color};
+
+	--error-color: #{$error-color};
+	--error-bg-color: #{$error-bg-color};
+
+	--form-col-gutter: #{$form-col-gutter};
+	--form-row-margin: #{$form-row-margin};
+
+	// === Using cycle on scss map
+
+	// --- Css variable for h1-h6 font-size
+	@each $name, $array in $h1-h6-font-size {
+		@if ($name == "default") {
+			@for $i from 1 through length($array) {
+				--h#{$i}: #{nth($array, $i)};
+			}
+		} @else {
+			@include media("<=#{$name}") {
+				@for $i from 1 through length($array) {
+					--h#{$i}: #{nth($array, $i)};
+				}
+			}
+		}
+	}
+	// --- Css variable for buttons size
+	@each $name, $array in $btnsSize {
+		@if ($name == "default") {
+			@each $key, $arr in $array {
+				@each $prop, $value in $arr {
+					@if ($key == "default") {
+						--btn-#{$prop}: #{$value};
+					} @else {
+						--btn-#{$key}-#{$prop}: #{$value};
+					}
+				}
+			}
+		} @else {
+			@include media("<=#{$name}") {
+				@each $key, $arr in $array {
+					@each $prop, $value in $arr {
+						@if ($key == "default") {
+							--btn-#{$prop}: #{$value};
+						} @else {
+							--btn-#{$key}-#{$prop}: #{$value};
+						}
+					}
+				}
+			}
+		}
+	}
+}

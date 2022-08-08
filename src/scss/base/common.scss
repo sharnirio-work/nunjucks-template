@@ -1,0 +1,61 @@
+//------------------- box-sizing for all element
+* {
+	box-sizing: inherit;
+	// max-height to all
+	max-height: 1000000px;
+
+	&:after,
+	&:before {
+		box-sizing: inherit;
+	}
+}
+
+//------------------- transition none when resize
+.resize-active {
+	transition: none !important;
+
+	*,
+	*:before,
+	*:after {
+		transition: inherit !important;
+	}
+}
+//------------------- container
+.container {
+	width: 100%;
+	margin: 0 auto;
+	padding-left: var(--gutter);
+	padding-right: var(--gutter);
+
+	@each $name, $value in $container {
+		@if ($name == 'default') {
+			max-width: calc(#{$value} + var(--gutter) * 2);
+		} @else {
+			&._#{$name} {
+				max-width: calc(#{$value} + var(--gutter) * 2);
+			}
+		}
+	}
+}
+
+//------------------- footer to bottom
+html,
+body {
+	height: 100%;
+}
+
+.wrapper {
+	display: grid;
+	grid-template-rows: auto 1fr auto;
+	min-height: 100%;
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+}
+
+// fix bug on some flex block (see example with slider swiper)
+.main,
+.header,
+.footer {
+	min-width: 0;
+}

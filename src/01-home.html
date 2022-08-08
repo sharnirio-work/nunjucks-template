@@ -1,0 +1,21 @@
+---
+title: Don't forget to change tittle - for this page
+---
+{% import 'src/template/macros.html' as mac %}
+{% include 'src/template/head.html' %}
+
+<body>
+	<div class="wrapper">
+		{% include 'src/template/header.html' %}
+		<main class="main">
+			{# How to use macros #}
+			{{ mac.test({
+				h2: "Just H2",
+				h3: "This is H3"
+			}) }}
+		</main>
+		{% include 'src/template/footer.html' %}
+	</div>
+	{% include 'src/template/includes.html' %}
+</body>
+</html>
